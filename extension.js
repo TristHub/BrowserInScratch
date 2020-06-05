@@ -1,170 +1,244 @@
-(function(ext) {
-/*_ExtenilK Scratch Exention_*/
-ext._shutdown = (function() {})
-ext._getStatus = (function() {return {status: 2, msg: "Created by enilK"}})
-/*_Block Functions_*/
-/*Dialog Boxes*/
-ext.a = (function(x) {window.alert(x)})
-ext.c = (function(x) {return window.confirm(x)})
-ext.p = (function(x) {return window.prompt(x, "")})
-ext.pd = (function(x, d) {return window.prompt(x, d)})
-/*Console*/
-ext.log = (function(x) {console.log(x)})
-ext.err = (function(x) {console.error(x)})
-ext.wrn = (function(x) {console.warn(x)})
-ext.inf = (function(x) {console.info(x)})
-ext.trc = (function(x) {console.trace(x)})
-ext.clr = (function() {console.clear()})
-/*Math and Strings*/
-ext.power = (function(a, b) {return Math.pow(a, b)})
-ext.const = (function(c) {return Math[c]})
-ext.infin = (function() {return Infinity})
-ext.comp = (function(a, sym, b) {return Boolean(eval(a.concat(sym, b)))})
-ext.rand = (function() {return Math.random()})
-ext.toCase = (function(x, c) {return eval("x".concat(".to", c, "Case()"))})
-ext.cont = (function(a, b) {return a.indexOf(b) > -1})
-ext.index = (function(a, b) {return a.indexOf(b) + 1})
-ext.rev = (function(x) {return x.split("").reverse().join("")})
-ext.trim = (function(x) {return x.trim()})
-/*Scratch Website*/
-ext.title = (function() {if(document.getElementById("title").innerHTML.charAt(0) == "<") {
-//
-}else{
-return document.getElementById("title").innerHTML}}
-ext.chngTitle = (function(x) {x = x.split(""); for(var i = 0; i < x.length; i++) {
-switch(x[i]) {case "<": x[i] = "&lt;"; break;
-case ">": x[i] = "&gt;"; break;
-case "&": x[i] = "&amp;"}}
-document.getElementById("title").innerHTML = x.join("")})
-ext.whEd = (function() {if(location.hash == "#editor") {return true}})
-ext.inEd = (function() {return location.hash == "#editor"})
-ext.see = (function(h) {location.hash = "#".concat(h)})
-ext.id = (function() {return location.pathname.slice(10, location.pathname.length-1)})
-/*Window and Document*/
-ext.tab = (function() {return document.title})
-ext.setTab = (function(x) {document.title = x})
-ext.open = (function(url) {window.open("https://".concat(url))})
-ext.crEl = (function(type, id) {var myEl = document.createElement(type)
-myEl.setAttribute("id", id); document.body.appendChild(myEl)})
-ext.getEl = (function(id) {return document.getElementById(id).toString()})
-ext.setAtt = (function(id, att, val) {document.getElementById(id).setAttribute(att, val)})
-ext.getAtt = (function(id, att) {return document.getElementById(id).getAttribute(att)})
-ext.rmvAtt = (function(id, att) {document.getElementById(id).removeAttribute(att)})
-ext.runJS = (function(cmd) {eval(cmd)})
-ext.evJS = (function(cmd) {return eval(cmd)})
-/*ExtenilK Extras*/
-var _once = true
-ext.once = (function() {if(_once) {_once = false; return true}})
-ext.bool = (function(b) {return b == "true"? true:false})
-ext.test = (function (tst, t, f) {return tst? t:f})
-ext.XXX = (function () {/**/})
-ext.CCC = (function() {})
-ext.nl = (function() {return "\n"})
-ext.lnSp = (function(x, y) {return x.concat("\n", y)})
-ext.whenEqual = (function(x, y) {return x == y})
-ext.whenChange = (function(x) {var current = x; while(current == x) {}; return true})
-/*Alarms and Counters*/
-var AnA = [], AvA = []
-ext.AsetA = (function(x, t) {if(AnA.indexOf(x) == -1) {AnA.push(x); AvA.push(false)}
-else {AvA[AnA.indexOf(x)] = false}
-window.setTimeout(function() {if(AvA[AnA.indexOf(x)] == false) {
-AvA[AnA.indexOf(x)] = true
-try {console.delayingTheNullValueSoThatTheHatBlockCanDetectTrueValue()}
-catch(error) {var err = error}
-finally {AvA[AnA.indexOf(x)] == null}}}, t*1000)})
-ext.AoffA = (function(x) {return AvA[AnA.indexOf(x)]})
-ext.AcancelA = (function(x) {AvA[AnA.indexOf(x)] = null})
-ext.AisA = (function(x) {return AvA[AnA.indexOf(x)] == false})
-var CNnCN = [], CNvCN = []
-ext.CNresetCN = (function(x) {if(CNnCN.indexOf(x) == -1) {CNnCN.push(x); CNvCN.push(0)}
-else {CNvCN[CNnCN.indexOf(x)] = 0}})
-ext.CN = (function(x) {if(CNnCN.indexOf(x) == -1) {CNnCN.push(x); CNvCN.push(0)}
-CNvCN[CNnCN.indexOf(x)] += 1; return CNvCN[CNnCN.indexOf(x)]})
-ext.CNresetallCN = (function() {CNvCN = []; for(var i = 0; i < CNnCN.length; i++) {
-CNvCN.push(0)}})
-/*_Block Descriptors_*/
-var descriptor = {blocks: [
-["L", "Dialog Boxes", ""],
-[" ", "alert %s", "a", "Hello, world!"],
-["b", "confirm %s", "c", "Is JavaScript awesome?"],
-["r", "prompt %s", "p", "Type in the box."],
-["r", "prompt %s default %s", "pd", "What is your name?", "John Doe"],
-["-"],
-["L", "Console", ""],
-[" ", "log in console %s", "log", "Press F12 to see this message"],
-[" ", "error in console %s", "err", "Something went wrong!"],
-[" ", "warn in console %s", "wrn", "Be careful when using the internet"],
-[" ", "info in console %s", "inf", "I have something to tell you!"],
-[" ", "trace in console %s", "trc", "How did I get here?"],
-[" ", "clear console", "clr"],
-["-"],
-["L", "Math and Strings", ""],
-["r", "%n ^ %n", "power", "2", "3"],
-["r", "math constant %m.consts", "const", "PI"],
-["r", "infinity", "infin"],
-["b", "compare %n %m.syms %n", "comp", "1", "<", "2"],
-["r", "random decimal", "rand"],
-["r", "%s to %m.cases case", "toCase", "Scratch", "Upper"],
-["b", "%s contains %s ?", "cont", "Scratch", "rat"],
-["r", "%s has %s at index", "index", "Scratch", "rat"],
-["r", "reverse %s", "rev", "racecar"],
-["r", "trim %s", "trim", "   [space]   "],
-["-"],
-["L", "Scratch Website", ""],
-["r", "project title", "title"],
-[" ", "change project title to %s", "chngTitle", "ExtenilK Experiment"],
-["h", "when in editor", "whEd"],
-["b", "in editor?", "inEd"],
-[" ", "see %m.pages", "see", "player"],
-["r", "project id", "id"],
-["-"],
-["L", "Window and Document", ""],
-["r", "tab name", "tab"],
-[" ", "set tab name to %s", "setTab", "This is Scratch"],
-[" ", "open website http:// %s", "open", "youtube.com"],
-[" ", "create element %s id: %s", "crEl", "audio", "myMusic"],
-["r", "get element by id: %s", "getEl", "myMusic"],
-[" ", "set attribute of element id: %s att: %s value: %s", "setAtt", "myMusic", "controls", "ctrls"],
-["r", "get attribute of element id: %s att: %s", "getAtt", "myMusic", "controls"],
-[" ", "remove attribute of element id: %s att: %s", "rmvAtt", "myMusic", "controls"],
-[" ", "run JavaScript %s", "runJS", "var txt = \"Hi!\"; alert(txt)"],
-["r", "eval JavaScript %s", "evJS", "var five = 5, seven = 7; five + seven"],
-["-"],
-["L", "ExtenilK Extras", ""],
-["h", "run once when ExtenilK installed", "once"],
-["b", "Boolean constant %m.tf", "bool", "true"],
-["r", "test %b if true %s if false %s", "test", "", "It’s True", "It’s False"],
-[" ", "/* %s */", "XXX", "comment; it's ignored"],
-["c", "block holder (doesn't run):", "CCC"],
-["r", "new line", "nl"],
-["r", "%s line split %s", "lnSp", "Top", "Bottom"],
-["h", "when %s = %s", "whenEqual", "this", "that"],
-["h", "when %s changes", "whenChange", "var"],
-["-"],
-["L", "Alarms and Counters", ""],
-[" ", "set alarm %s for %n secs", "AsetA", "myAlarm", "10"],
-["h", "when alarm %s goes off", "AoffA", "myAlarm"],
-[" ", "cancel alarm %s", "AcancelA", "myAlarm"],
-["b", "alarm %s is set?", "AisA", "myAlarm"],
-[" ", "reset counter %s", "CNresetCN", "myCounter"],
-["r", "counter %s", "CN", "myCounter"],
-[" ", "reset all counters", "CNresetallCN"]
-],
-menus: {
-consts: ["PI", "E", "SQRT2", "SQRT1_2", "LN2", "LN10", "LOG2E", "LOG10E"],
-syms: ["<", "!=", ">", "<=", "==", ">="],
-cases: ["Upper", "Lower"],
-pages: ["player", "editor", "fullscreen"],
-tf: ["true", "false"]
-},
-url: "https://scratch.mit.edu/projects/117593195/"
+const ArgumentType = require('../../extension-support/argument-type');
+const BlockType = require('../../extension-support/block-type');
+const TargetType = require('../../extension-support/target-type');
+
+// ...or VM dependencies:
+const formatMessage = require('format-message');
+
+// Core, Team, and Official extension classes should be registered statically with the Extension Manager.
+// See: scratch-vm/src/extension-support/extension-manager.js
+class SomeBlocks {
+    constructor (runtime) {
+        /**
+         * Store this for later communication with the Scratch VM runtime.
+         * If this extension is running in a sandbox then `runtime` is an async proxy object.
+         * @type {Runtime}
+         */
+        this.runtime = runtime;
+    }
+
+    /**
+     * @return {object} This extension's metadata.
+     */
+    getInfo () {
+        return {
+            // Required: the machine-readable name of this extension.
+            // Will be used as the extension's namespace.
+            id: 'someBlocks',
+
+            // Core extensions only: override the default extension block colors.
+            color1: '#FF8C1A',
+            color2: '#DB6E00',
+
+            // Optional: the human-readable name of this extension as string.
+            // This and any other string to be displayed in the Scratch UI may either be
+            // a string or a call to `formatMessage`; a plain string will not be
+            // translated whereas a call to `formatMessage` will connect the string
+            // to the translation map (see below). The `formatMessage` call is
+            // similar to `formatMessage` from `react-intl` in form, but will actually
+            // call some extension support code to do its magic. For example, we will
+            // internally namespace the messages such that two extensions could have
+            // messages with the same ID without colliding.
+            // See also: https://github.com/yahoo/react-intl/wiki/API#formatmessage
+            name: formatMessage({
+                id: 'extensionName',
+                defaultMessage: 'Some Blocks',
+                description: 'The name of the "Some Blocks" extension'
+            }),
+
+            // Optional: URI for a block icon, to display at the edge of each block for this
+            // extension. Data URI OK.
+            // TODO: what file types are OK? All web images? Just PNG?
+            blockIconURI: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAFCAAAAACyOJm3AAAAFklEQVQYV2P4DwMMEMgAI/+DEUIMBgAEWB7i7uidhAAAAABJRU5ErkJggg==',
+
+            // Optional: URI for an icon to be displayed in the blocks category menu.
+            // If not present, the menu will display the block icon, if one is present.
+            // Otherwise, the category menu shows its default filled circle.
+            // Data URI OK.
+            // TODO: what file types are OK? All web images? Just PNG?
+            menuIconURI: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAFCAAAAACyOJm3AAAAFklEQVQYV2P4DwMMEMgAI/+DEUIMBgAEWB7i7uidhAAAAABJRU5ErkJggg==',
+
+            // Optional: Link to documentation content for this extension.
+            // If not present, offer no link.
+            docsURI: 'https://....',
+
+            // Required: the list of blocks implemented by this extension,
+            // in the order intended for display.
+            blocks: [
+                {
+                    // Required: the machine-readable name of this operation.
+                    // This will appear in project JSON.
+                    opcode: 'myReporter', // becomes 'someBlocks.myReporter'
+
+                    // Required: the kind of block we're defining, from a predefined list.
+                    // Fully supported block types:
+                    //   BlockType.BOOLEAN - same as REPORTER but returns a Boolean value
+                    //   BlockType.COMMAND - a normal command block, like "move {} steps"
+                    //   BlockType.HAT - starts a stack if its value changes from falsy to truthy ("edge triggered")
+                    //   BlockType.REPORTER - returns a value, like "direction"
+                    // Block types in development or for internal use only:
+                    //   BlockType.BUTTON - place a button in the block palette
+                    //   BlockType.CONDITIONAL - control flow, like "if {}" or "if {} else {}"
+                    //     A CONDITIONAL block may return the one-based index of a branch to
+                    //     run, or it may return zero/falsy to run no branch.
+                    //   BlockType.EVENT - starts a stack in response to an event (full spec TBD)
+                    //   BlockType.LOOP - control flow, like "repeat {} {}" or "forever {}"
+                    //     A LOOP block is like a CONDITIONAL block with two differences:
+                    //     - the block is assumed to have exactly one child branch, and
+                    //     - each time a child branch finishes, the loop block is called again.
+                    blockType: BlockType.REPORTER,
+
+                    // Required for CONDITIONAL blocks, ignored for others: the number of
+                    // child branches this block controls. An "if" or "repeat" block would
+                    // specify a branch count of 1; an "if-else" block would specify a
+                    // branch count of 2.
+                    // TODO: should we support dynamic branch count for "switch"-likes?
+                    branchCount: 0,
+
+                    // Optional, default false: whether or not this block ends a stack.
+                    // The "forever" and "stop all" blocks would specify true here.
+                    terminal: true,
+
+                    // Optional, default false: whether or not to block all threads while
+                    // this block is busy. This is for things like the "touching color"
+                    // block in compatibility mode, and is only needed if the VM runs in a
+                    // worker. We might even consider omitting it from extension docs...
+                    blockAllThreads: false,
+
+                    // Required: the human-readable text on this block, including argument
+                    // placeholders. Argument placeholders should be in [MACRO_CASE] and
+                    // must be [ENCLOSED_WITHIN_SQUARE_BRACKETS].
+                    text: formatMessage({
+                        id: 'myReporter',
+                        defaultMessage: 'letter [LETTER_NUM] of [TEXT]',
+                        description: 'Label on the "myReporter" block'
+                    }),
+
+                    // Required: describe each argument.
+                    // Argument order may change during translation, so arguments are
+                    // identified by their placeholder name. In those situations where
+                    // arguments must be ordered or assigned an ordinal, such as interaction
+                    // with Scratch Blocks, arguments are ordered as they are in the default
+                    // translation (probably English).
+                    arguments: {
+                        // Required: the ID of the argument, which will be the name in the
+                        // args object passed to the implementation function.
+                        LETTER_NUM: {
+                            // Required: type of the argument / shape of the block input
+                            type: ArgumentType.NUMBER,
+
+                            // Optional: the default value of the argument
+                            default: 1
+                        },
+
+                        // Required: the ID of the argument, which will be the name in the
+                        // args object passed to the implementation function.
+                        TEXT: {
+                            // Required: type of the argument / shape of the block input
+                            type: ArgumentType.STRING,
+
+                                // Optional: the default value of the argument
+                            default: formatMessage({
+                                id: 'myReporter.TEXT_default',
+                                defaultMessage: 'text',
+                                description: 'Default for "TEXT" argument of "someBlocks.myReporter"'
+                            })
+                        }
+                    },
+
+                    // Optional: the function implementing this block.
+                    // If absent, assume `func` is the same as `opcode`.
+                    func: 'myReporter',
+
+                    // Optional: list of target types for which this block should appear.
+                    // If absent, assume it applies to all builtin targets -- that is:
+                    // [TargetType.SPRITE, TargetType.STAGE]
+                    filter: [TargetType.SPRITE]
+                },
+                {
+                    // Another block...
+                }
+            ],
+
+            // Optional: define extension-specific menus here.
+            menus: {
+                // Required: an identifier for this menu, unique within this extension.
+                menuA: [
+                    // Static menu: list items which should appear in the menu.
+                    {
+                        // Required: the value of the menu item when it is chosen.
+                        value: 'itemId1',
+
+                        // Optional: the human-readable label for this item.
+                        // Use `value` as the text if this is absent.
+                        text: formatMessage({
+                            id: 'menuA_item1',
+                            defaultMessage: 'Item One',
+                            description: 'Label for item 1 of menu A in "Some Blocks" extension'
+                        })
+                    },
+
+                    // The simplest form of a list item is a string which will be used as
+                    // both value and text.
+                    'itemId2'
+                ],
+
+                // Dynamic menu: returns an array as above.
+                // Called each time the menu is opened.
+                menuB: 'getItemsForMenuB',
+
+                // The examples above are shorthand for setting only the `items` property in this full form:
+                menuC: {
+                    // This flag makes a "droppable" menu: the menu will allow dropping a reporter in for the input.
+                    acceptReporters: true,
+
+                    // The `item` property may be an array or function name as in previous menu examples.
+                    items: [/*...*/] || 'getItemsForMenuC'
+                }
+            },
+
+            // Optional: translations (UNSTABLE - NOT YET SUPPORTED)
+            translation_map: {
+                de: {
+                    'extensionName': 'Einige Blöcke',
+                    'myReporter': 'Buchstabe [LETTER_NUM] von [TEXT]',
+                    'myReporter.TEXT_default': 'Text',
+                    'menuA_item1': 'Artikel eins',
+
+                    // Dynamic menus can be translated too
+                    'menuB_example': 'Beispiel',
+
+                    // This message contains ICU placeholders (see `myReporter()` below)
+                    'myReporter.result': 'Buchstabe {LETTER_NUM} von {TEXT} ist {LETTER}.'
+                },
+                it: {
+                    // ...
+                }
+            }
+        };
+    };
+
+    /**
+     * Implement myReporter.
+     * @param {object} args - the block's arguments.
+     * @property {string} MY_ARG - the string value of the argument.
+     * @returns {string} a string which includes the block argument value.
+     */
+    myReporter (args) {
+        // This message contains ICU placeholders, not Scratch placeholders
+        const message = formatMessage({
+            id: 'myReporter.result',
+            defaultMessage: 'Letter {LETTER_NUM} of {TEXT} is {LETTER}.',
+            description: 'The text template for the "myReporter" block result'
+        });
+
+        // Note: this implementation is not Unicode-clean; it's just here as an example.
+        const result = args.TEXT.charAt(args.LETTER_NUM);
+
+        return message.format({
+            LETTER_NUM: args.LETTER_NUM,
+            TEXT: args.TEXT,
+            LETTER: result
+        });
+    };
 }
-var working = true
-try {ScratchExtensions.register("ExtenilK", descriptor, ext)}
-catch(e) {window.alert("✖ ExtenilK cannot be installed at this time.\n\
-ERROR: ".concat(e))
-console.error(e)
-working = false}
-if(working) {alert("✔ ExtenilK has been successfully installed!\n\
-Caution: ExtenilK can run user JavaScript commands and can add/change elements.")}
-})({})
